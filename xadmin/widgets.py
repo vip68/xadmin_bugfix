@@ -152,6 +152,7 @@ class AdminCheckboxSelect(forms.CheckboxSelectMultiple):
             option_value = force_text(option_value)
             rendered_cb = cb.render(name, option_value)
             option_label = conditional_escape(force_text(option_label))
+            final_attrs['inline'] = True if self.attrs['inline'] else False
 
             if final_attrs.get('inline', False):
                 output.append(u'<label%s class="checkbox-inline">%s %s</label>' % (label_for, rendered_cb, option_label))
