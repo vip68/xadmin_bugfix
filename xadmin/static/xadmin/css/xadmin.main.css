@@ -245,6 +245,8 @@ ul.nav-sitemenu li a {
   .panel-group.nav-sitemenu {
     position: fixed;
     margin-left: -15px;
+    overflow-y: auto;
+    height: 100%;
   }
   .panel-group.nav-sitemenu .panel .list-group.in{
     max-height: 500px;
@@ -303,7 +305,7 @@ a[class^="icon-"]:before, a[class*=" icon-"]:before {
 
 /** fix navbar input-append and input-prepend margin **/
 .navbar .navbar-brand {
-  max-width: 400px;
+  max-width: 600px;
 }
 
 /** import for bp3.0 */
