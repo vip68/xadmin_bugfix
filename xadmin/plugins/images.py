@@ -42,7 +42,7 @@ class AdminImageWidget(forms.FileInput):
     def __init__(self, attrs={}):
         super(AdminImageWidget, self).__init__(attrs)
 
-    def render(self, name, value, attrs=None):
+    def render(self, name, value, attrs=None, renderer=None):
         output = []
         if value and hasattr(value, "url"):
             label = self.attrs.get('label', name)
