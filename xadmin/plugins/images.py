@@ -48,7 +48,7 @@ class AdminImageWidget(forms.FileInput):
             label = self.attrs.get('label', name)
             output.append('<a href="%s" target="_blank" title="%s" data-gallery="gallery"><img src="%s" class="field_img"/></a><br/>%s ' %
                          (value.url, label, value.url, _('Change:')))
-        output.append(super(AdminImageWidget, self).render(name, value, attrs))
+        output.append(super(AdminImageWidget, self).render(name, value, attrs, renderer))
         return mark_safe(u''.join(output))
 
     def use_required_attribute(self, initial):
