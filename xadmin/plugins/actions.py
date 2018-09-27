@@ -102,7 +102,7 @@ class DeleteSelectedAction(BaseActionView):
 
         if django_version > (2, 0):
             deletable_objects, model_count, perms_needed, protected = get_deleted_objects(
-                queryset, self.opts, self.admin_site)
+                queryset, self, self.admin_site)
         else:
             using = router.db_for_write(self.model)
             deletable_objects, model_count, perms_needed, protected = get_deleted_objects(

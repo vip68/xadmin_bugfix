@@ -4,6 +4,7 @@ Form Widget classes specific to the Django admin site.
 from __future__ import absolute_import
 from itertools import chain
 from django import forms
+from django import VERSION as django_version
 try:
     from django.forms.widgets import ChoiceWidget as RadioChoiceInput
 except:
@@ -15,8 +16,6 @@ from django.utils.html import conditional_escape
 from django.utils.translation import ugettext as _
 
 from .util import vendor
-
-DJANGO_11 = True
 
 
 class AdminDateWidget(forms.DateInput):
@@ -128,7 +127,7 @@ class AdminCheckboxSelect(forms.CheckboxSelectMultiple):
         if value is None:
             value = []
         has_id = attrs and 'id' in attrs
-        if DJANGO_11:
+        if django_version > (2, 0):
             final_attrs = self.build_attrs(attrs, extra_attrs={'name': name})
         else:
             final_attrs = self.build_attrs(attrs, name=name)
