@@ -41,7 +41,7 @@ class DeleteAdminView(ModelAdminView):
         # will also be deleted.
         if django_version > (2, 0):
             (self.deleted_objects, model_count, self.perms_needed, self.protected) = get_deleted_objects(
-                [self.obj], self.opts, self.admin_site)
+                [self.obj], self, self.admin_site)
         else:
             (self.deleted_objects, model_count, self.perms_needed, self.protected) = get_deleted_objects(
                 [self.obj], self.opts, self.request.user, self.admin_site, using)
