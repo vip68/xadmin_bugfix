@@ -1,0 +1,131 @@
+{% load xadmin_tags %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
+<head>
+    <title>{{ site_web }}</title>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" type="image/png" href="{% static "xadmin/img/favicon.ico" %}"/>
+    <style type="text/css">
+        .jump {
+            width: 640px;
+            height: 480px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -158px;
+            margin-left: -290px;
+            text-align: center;
+        }
+
+        .jump-img {
+            display: block;
+            height: 200px;
+            margin: 0 auto 30px;
+        }
+
+        .jump-state,
+        .jump-tip {
+            padding: 3px 0;
+            font-size: 18px;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        .jump-state i {
+            margin: 0 5px;
+        }
+
+        .state-wait {
+            color: #3c8dbc;
+        }
+
+        .jump-tip {
+            color: #dd4b39;
+            font-size: 16px;
+        }
+
+        #btns button {
+            margin: 5px 0;
+            border-radius: 0;
+        }
+    </style>
+</head>
+
+<body>
+<div class="jump">
+    <img class="jump-img" src="{% static "xadmin/img/jump.png" %}" alt="跳转中">
+    <p class="jump-state state-wait"><i class="fa fa-check"></i>{{ title }}</p>
+    <p class="jump-tip">
+        {{ message|safe }}
+    </p>
+</div>
+
+
+{% vendor 'jquery.js' %}
+<script type="text/javascript">
+    $(document).ready(function (e) {
+        doAction();
+        {#这里设置的120000的意思是：等待2分钟(上面操作预测运行时间)之后，再进行下面的接口查询#}
+        setTimeout('updateShow()', 120000);
+    });
+
+    function doAction() {
+        {#执行抓取#}
+        $.ajax({
+            type: "GET",
+            url: "http://" + window.location.host + "/baby/pocket/act/?id={{ tid }}",
+            dataType: "json",
+        })
+    }
+
+    var result = -999;
+
+    function updateShow() {
+        {#查询执行是否完成，是否生成下载地址#}
+        $.ajax({
+            type: "GET",
+            url: "http://" + window.location.host + "/wechat/api/pocket/?id={{ tid }}",
+            dataType: "json",
+
+            success: function (data) {
+                var title = "";
+                var content = "";
+                result = data.data.code;
+                console.log('code:' + data.data.code);
+
+                if (data.data.code === 1) {
+                    title = "执行成功，请点击下方链接下载！";
+                    content = data.data.url;
+
+                    $('.state-wait').text(title);
+                    $('.jump-tip').text(content);
+
+                } else if (data.data.code < 0) {
+                    title = "执行失败，请刷新页面重试！";
+                    content = data.data.msg;
+
+                    $('.state-wait').text(title);
+                    $('.jump-tip').text(content);
+                }
+            },
+            error: function (jqXHR) {
+                result = -1;
+                title = "执行失败，请刷新页面重试！";
+                content = "[code:" + jqXHR.status + "] 若重试三次后仍出现错误，请联系管理员处理！";
+
+                $('.state-wait').text(title);
+                $('.jump-tip').text(content);
+            },
+        });
+
+        $(function f() {
+            if (result === -999 || result === 0) {
+                setTimeout('updateShow()', 5000);
+            } else {
+                clearTimeout('updateShow()');
+            }
+        })
+    }
+</script>
+</body>
+</html>
