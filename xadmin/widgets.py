@@ -122,7 +122,7 @@ class AdminRadioSelect(forms.RadioSelect):
 
 class AdminCheckboxSelect(forms.CheckboxSelectMultiple):
 
-    def render(self, name, value, attrs=None, choices=()):
+    def render(self, name, value, attrs=None, choices=(), renderer=None):
         if value is None:
             value = []
         has_id = attrs and 'id' in attrs

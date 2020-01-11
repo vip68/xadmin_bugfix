@@ -19,7 +19,7 @@ class SelectMultipleTransfer(forms.SelectMultiple):
     def media(self):
         return vendor('xadmin.widget.select-transfer.js', 'xadmin.widget.select-transfer.css')
 
-    def __init__(self, verbose_name, is_stacked, attrs=None, choices=()):
+    def __init__(self, verbose_name, is_stacked, attrs=None, choices=(), renderer=None):
         self.verbose_name = verbose_name
         self.is_stacked = is_stacked
         super(SelectMultipleTransfer, self).__init__(attrs, choices)
@@ -29,7 +29,7 @@ class SelectMultipleTransfer(forms.SelectMultiple):
         return u'<option value="%s">%s</option>' % (
             escape(option_value), conditional_escape(force_text(option_label))), bool(option_value in selected_choices)
 
-    def render(self, name, value, attrs=None, choices=()):
+    def render(self, name, value, attrs=None, choices=(), renderer=None):
         if attrs is None:
             attrs = {}
         attrs['class'] = ''
@@ -80,11 +80,11 @@ class SelectMultipleDropdown(forms.SelectMultiple):
     def media(self):
         return vendor('multiselect.js', 'multiselect.css', 'xadmin.widget.multiselect.js')
 
-    def render(self, name, value, attrs=None, choices=()):
+    def render(self, name, value, attrs=None, choices=(), renderer=None):
         if attrs is None:
             attrs = {}
         attrs['class'] = 'selectmultiple selectdropdown'
-        return super(SelectMultipleDropdown, self).render(name, value, attrs, choices)
+        return super(SelectMultipleDropdown, self).render(name, value, attrs, renderer)
 
 
 class M2MSelectPlugin(BaseAdminPlugin):
