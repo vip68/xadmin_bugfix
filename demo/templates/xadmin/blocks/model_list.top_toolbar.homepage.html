@@ -1,7 +1,7 @@
 {% load xadmin_tags %}
 
 <div class="btn-group export">
-    <link rel="stylesheet" type="text/css" href="{% static "xadmin/css/sweetalert2.min.css" %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static "xadmin/css/sweetalert2.css" %}"/>
     <input type="hidden" value="{{ query_url }}" id="queryUrl"/>
     <input type="hidden" value="{{ url_path }}" id="urlPath"/>
     <button id="set_homepage" name="btn_homepage" class="btn btn-default btn-sm" onclick="changeValue();">
