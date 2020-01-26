@@ -20,10 +20,6 @@ select.selectmultiple {
 .form-container .column{
   min-height: 60px;
 }
-.form-group {
-  margin-right: -15px;
-  margin-left: -15px;
-}
 .control-label {
   padding: 7px 10px;
   font-weight: bold;
@@ -75,7 +71,7 @@ select.selectmultiple {
 
 @media (min-width: 768px) {
 
-  .text-field, 
+  .text-field,
   .textinput,
   .url-field,
   select,

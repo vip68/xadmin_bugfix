@@ -1,12 +1,26 @@
 /** Action **/
 .action-checkbox-column {
-  width: 14px;
+    width: 14px;
 }
 
 /** quick-form **/
 .quick-form .modal-body {
-	padding-bottom: 0px;
+    padding-bottom: 0;
 }
+
 .quick-form .modal-footer {
-	margin-top: 0px;
+    margin-top: 0;
+}
+
+label.checkbox {
+    padding-left: 20px;
+}
+
+.modal-footer {
+    padding: 19px 20px 20px;
+    text-align: right;
+}
+
+.btn-toolbar .btn {
+    float: none;
 }
