@@ -12,12 +12,13 @@ User = get_user_model()
 class UserProfileAdmin(UserAdmin):
     change_user_password_template = None
     form_layout = None
-    list_display = ('username', 'zh_name', 'user_id', 'is_superuser', 'is_staff', 'is_active', 'last_login',)
-    list_filter = ('is_staff', 'is_superuser', 'is_active')
+    list_display = ('username', 'zh_name', 'user_id', 'is_superuser', 'is_pwd_login', 'is_staff', 'is_active',
+                    'home_page', 'last_login',)
+    list_filter = ('is_staff', 'is_superuser', 'is_pwd_login', 'is_active', 'last_login')
     search_fields = ('username', 'zh_name', 'email')
-    ordering = ('-is_superuser', 'user_id', 'last_login',)
+    ordering = ('-is_superuser', '-is_pwd_login', 'user_id', 'last_login',)
     show_detail_fields = ('zh_name',)
-    style_fields = {'user_permissions': 'm2m_transfer'}
+    style_fields = {'user_permissions': 'm2m_transfer', 'groups': 'm2m_dropdown'}
     model_icon = 'fa fa-user'
     relfield_style = 'fk-ajax'
 
@@ -31,7 +32,7 @@ class UserProfileAdmin(UserAdmin):
                              ),
                     Fieldset(_('Personal info'),
                              Row('zh_name', 'user_id'),
-                             Row('email'),
+                             Row('email', 'home_page', ),
                              css_class='unsort'
                              ),
                     Fieldset(_('Permissions'),
@@ -45,7 +46,7 @@ class UserProfileAdmin(UserAdmin):
                 ),
                 Side(
                     Fieldset(_('Status'),
-                             'is_active', 'is_staff', 'is_superuser',
+                             'is_active', 'is_staff', 'is_pwd_login', 'is_superuser',
                              ),
                     css_class='unsort'
                 )

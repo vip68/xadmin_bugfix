@@ -1,4 +1,4 @@
-{% extends base_template %}
+{% extends 'xadmin/base.html' %}
 {% load i18n xadmin_tags %}
 {% block title %}{{ title }} | {{ site_title }}{% endblock %}
 
@@ -7,8 +7,13 @@
     {% block top-nav %}
         <div id="top-nav" class="navbar navbar-xs navbar-inverse navbar-fixed-top">
             <div class="navbar-header">
-                <a class="navbar-brand" href="{{ site_url }}">
-                    <img alt="logo" src="{% static "xadmin/img/title-logo.png" %}" width="17" height="20">
+
+                <button id="main-toggle" class="navbar-toggle pull-left" style="display: none;" data-toggle="class"
+                        data-target="#body-content" data-class-name="show_menu"><i class="fa fa-list"></i></button>
+
+                {% include "xadmin/includes/toggle_menu.html" %}
+
+                <a class="navbar-brand" href="{% if site_url %}{{ site_url }}{% else %}/{% endif %}">
                     {% block branding %}{{ site_title }}{% endblock %}</a>
             </div>
             <div class="navbar-collapse collapse">
@@ -17,7 +22,7 @@
                     {% if user.is_active and user.is_staff %}
                         <li class="dropdown">
                             <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#">
-                                <strong>{% trans 'Welcome,' %} {% firstof user.zh_name user.username %}</strong>
+                                <strong>{% trans 'Welcome,' %} {% firstof user.first_name user.username %}</strong>
                                 <span class="caret"></span></a>
                             <ul id="g-account-menu" class="dropdown-menu" role="menu">
                                 {% view_block 'top_account_menu' %}
@@ -31,6 +36,40 @@
             </div>
         </div>
     {% endblock %}
+
+    <style>
+        {% if menu_style == 'accordion' %}
+            ul.nav-sitemenu {
+                position: fixed;
+                z-index: 100;
+                width: 5%;
+            }
+
+            @media (min-width: 992px) {
+                ul.nav-sitemenu {
+                    position: fixed;
+                    z-index: 100;
+                    width: 5%;
+                }
+            }
+        {% else %}
+            @media (min-width: 768px) and (max-width: 991px) {
+                ul.nav-sitemenu {
+                    position: fixed;
+                    z-index: 100;
+                    width: 5%;
+                    padding: 10px;
+                }
+
+                #body-content.show_menu .well.nav.nav-pills.nav-stacked.nav-sitemenu.hide-sm {
+                    background: #f5f5f5;
+                    bottom: inherit;
+                    width: 27%;
+                }
+            }
+        {% endif %}
+    </style>
+
     <div id="body-content" class="clearfix row">
         <div id="left-side" class="col-sm-1 col-md-2">
             {% block navbar %}
@@ -62,7 +101,7 @@
 
             {% block content-nav %}
                 {% if welcome_msg %}
-                    <div id="m_tip" class="alert alert-dismissable alert-info"
+                    <div id="m_tip" class="alert alert-dismissable alert-{{ alert_type }}"
                          style="text-align:center;">{{ welcome_msg }}</div>
                 {% endif %}
 
@@ -118,10 +157,8 @@
             <hr/>
             <footer class="text-center">
                 {% block site_footer %}
-                    <b>Copyright &copy; {{ date }} <a href="https://v88v.cnblogs.com" target="_blank">纵世科技</a>.
-                        All
-                        rights reserved.</b><br>
-                    <br>
+                    <b>Github &copy; {{ date }} <a href="https://github.com/vip68/xadmin_bugfix.git" target="_blank">纵世科技</a>.
+                        All rights reserved.</b>
                 {% endblock %}
             </footer>
         </div>

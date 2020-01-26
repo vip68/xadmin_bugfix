@@ -1,13 +1,17 @@
-import xadmin
 from datetime import datetime
-from xadmin.views import CommAdminView, LoginView, filter_hook
-from common import LOGIN_TITLE, BACKGROUND_INDEX
+from django.conf import settings
+from django.contrib.auth import get_user_model
+from xadmin.sites import site
+from xadmin.views import CommAdminView, ListAdminView, filter_hook
+from .plugins import SetHomePagePlugin
 from . import sitemenu
+
+UserModel = get_user_model()
 
 
 class GlobalSetting(CommAdminView):
     menu_style = 'accordion'
-    site_title = LOGIN_TITLE
+    site_title = settings.SITE_TITLE
 
     def get_site_menu(self):
         """
@@ -54,27 +58,13 @@ class GlobalSetting(CommAdminView):
         context = super(GlobalSetting, self).get_context()
 
         context.update({
-            'site_web': LOGIN_TITLE,
-            'site_url': '/admin/',
+            'menu_style': self.menu_style,
+            'site_url': settings.MANAGE_PAGE,
             'date': datetime.now().year,
         })
 
         return context
 
 
-class LoginViewAdmin(LoginView):
-    title = LOGIN_TITLE
-
-    @filter_hook
-    def get_context(self):
-        context = super(LoginViewAdmin, self).get_context()
-
-        context.update({
-            'bg_index': BACKGROUND_INDEX,
-        })
-
-        return context
-
-
-xadmin.site.register(CommAdminView, GlobalSetting)
-xadmin.site.register(LoginView, LoginViewAdmin)
+site.register(CommAdminView, GlobalSetting)
+site.register_plugin(SetHomePagePlugin, ListAdminView)

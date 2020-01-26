@@ -1,11 +1,11 @@
 import xadmin
 import datetime
+from django.conf import settings
 from django.contrib.auth import get_permission_codename
 from xadmin.sites import site
 from xadmin.views import filter_hook, ModelAdminView, DetailAdminView
 from xadmin.layout import Main, Field
-
-from .models import Article, UnityHelper, UnityAttentions, ReleaseLog
+from .models import Article, ReleaseLog
 
 
 class ArticleAdmin(ModelAdminView):
@@ -16,6 +16,9 @@ class ArticleAdmin(ModelAdminView):
     search_fields = ('title', 'user__first_name',)
     list_filter = ('publish_time', 'update_time',)
     exclude = ('user', 'update_time', 'view_count',)
+    model_icon = 'fa fa-microphone'
+    reversion_enable = True
+    aggregate_fields = {'view_count': 'sum',}
 
     def get_form_layout(self):
         self.form_layout = (
@@ -58,7 +61,10 @@ class ArticleAdmin(ModelAdminView):
         # 限制提示信息只在首页列表页出现
         if not (self.request.path.endswith('/update/') or self.request.path.endswith(
                 '/add/') or self.request.path.endswith('/delete/') or hasattr(self, 'model_perm')):
-            context.update({'welcome_msg': '欢迎大家在此留言，提出宝贵意见和建议，大家携手共同进步！'})
+            context.update({
+                'welcome_msg': '欢迎大家在此留言，提出宝贵意见和建议，大家携手共同进步！',
+                'alert_type': 'success',
+            })
 
         return context
 
@@ -114,6 +120,7 @@ class BaseHelperAdmin(DetailAdminView):
             'app_label': self.app_label,
             'brand_name': self.opts.verbose_name_plural,
             'brand_icon': self.get_model_icon(self.model),
+            'opts_url': '/%s/service/article/' % settings.MANAGE_NAME,
             'has_change_permission': context['has_change_permission'] and self.has_modify_permission,
             'has_delete_permission': context['has_delete_permission'] and self.has_del_permission,
             'has_view_article_permission': self.has_view_article_permission(),
@@ -138,40 +145,6 @@ class ViewArticleAdmin(BaseHelperAdmin):
         return super(ViewArticleAdmin, self).get_context()
 
 
-class UnityHelperAdmin(BaseHelperAdmin):
-    @filter_hook
-    def get_context(self):
-        index = 2
-        try:
-            self.article_obj = Article.objects.get(id=index)
-        except Exception as e:
-            print(e)
-            self.article_obj = None
-
-        context = super(UnityHelperAdmin, self).get_context()
-        context.update({'edit_url': '/service/article/%d/update' % index,
-                        'delete_url': '/service/article/%d/delete' % index})
-
-        return context
-
-
-class UnityAttentionsAdmin(BaseHelperAdmin):
-    @filter_hook
-    def get_context(self):
-        index = 3
-        try:
-            self.article_obj = Article.objects.get(id=index)
-        except Exception as e:
-            print(e)
-            self.article_obj = None
-
-        context = super(UnityAttentionsAdmin, self).get_context()
-        context.update({'edit_url': '/service/article/%d/update' % index,
-                        'delete_url': '/service/article/%d/delete' % index})
-
-        return context
-
-
 class ReleaseLogAdmin(BaseHelperAdmin):
     @filter_hook
     def get_context(self):
@@ -183,15 +156,15 @@ class ReleaseLogAdmin(BaseHelperAdmin):
             self.article_obj = None
 
         context = super(ReleaseLogAdmin, self).get_context()
-        context.update({'edit_url': '/service/article/%d/update' % index,
-                        'delete_url': '/service/article/%d/delete' % index})
+        context.update({
+            'edit_url': '/%s/service/article/%d/update' % (settings.MANAGE_NAME, index),
+            'delete_url': '/%s/service/article/%d/delete' % (settings.MANAGE_NAME, index),
+        })
 
         return context
 
 
 xadmin.site.register(Article, ArticleAdmin)
-xadmin.site.register(UnityHelper, UnityHelperAdmin)
-xadmin.site.register(UnityAttentions, UnityAttentionsAdmin)
 xadmin.site.register(ReleaseLog, ReleaseLogAdmin)
 
 site.register_modelview(r'^(.+)/view/$', ViewArticleAdmin, name='%s_%s_view')

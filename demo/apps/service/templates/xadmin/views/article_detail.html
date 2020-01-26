@@ -1,42 +1,21 @@
 {% extends base_template %}
-{% load i18n %}
+{% load i18n xadmin_tags crispy_forms_tags %}
 
-{% load xadmin_tags %}
-{% load crispy_forms_tags %}
+{% block extrastyle %}{{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static "xadmin/css/article.css" %}"/>
+{% endblock %}
 
 {% block bodyclass %}{{ opts.app_label }}-{{ opts.object_name.lower }} detail{% endblock %}
 
 {% block breadcrumbs %}
     <ul class="breadcrumb">
         <li><a href="{% url 'xadmin:index' %}">{% trans 'Home' %}</a></li>
-        <li><a href="/service/article/">{{ opts.verbose_name_plural|capfirst }}</a></li>
+        <li><a href="{{ opts_url }}">{{ opts.verbose_name_plural|capfirst }}</a></li>
         <li>{{ article_title }}</li>
     </ul>
 {% endblock %}
 
 {% block content-nav %}
-    <style>
-        .article_title {
-            width: 100%;
-            margin: 0 auto;
-        }
-
-        .title_status {
-            color: #666666;
-            width: 100%;
-            margin: 0 auto;
-            text-align: center;
-
-        }
-
-        .bottom-btn {
-            right: 3%;
-            position: fixed;
-            bottom: 11%;
-            z-index: 100;
-        }
-    </style>
-
     <div class="navbar content-navbar navbar-default navbar-xs" data-toggle="breakpoint"
          data-class-xs="navbar content-navbar navbar-inverse navbar-xs"
          data-class-sm="navbar content-navbar navbar-default navbar-xs">
@@ -79,25 +58,6 @@
 {% endblock %}
 
 {% block content %}
-    <style>
-        .allcontent {
-            margin: 0 auto;
-            width: 95%;
-            height: 100%;
-            background: #FBFBFB;
-            min-height: 50vh;
-        }
-
-        .cssarticle img {
-            margin: 0 auto;
-            width: 100%;
-            height: 100%;
-            max-width: 100%;
-            max-height: 100%;
-            vertical-align: middle;
-        }
-    </style>
-
     <div class="allcontent">
         <div class="cssarticle">
             {{ content|safe }}

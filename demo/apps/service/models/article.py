@@ -28,20 +28,6 @@ class Article(models.Model):
         return str(self.title)
 
 
-class UnityHelper(Article):
-    class Meta:
-        verbose_name = '服务大厅'
-        verbose_name_plural = '服务大厅'
-        proxy = True
-
-
-class UnityAttentions(Article):
-    class Meta:
-        verbose_name = '服务大厅'
-        verbose_name_plural = '服务大厅'
-        proxy = True
-
-
 class ReleaseLog(Article):
     class Meta:
         verbose_name = '服务大厅'

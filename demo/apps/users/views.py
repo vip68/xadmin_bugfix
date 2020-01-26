@@ -1,5 +1,8 @@
+from django.contrib.auth import get_user_model
 from django.contrib.auth.password_validation import MinimumLengthValidator, CommonPasswordValidator, \
     NumericPasswordValidator
+
+User = get_user_model()
 
 
 class UserMinimumLengthValidator(MinimumLengthValidator):

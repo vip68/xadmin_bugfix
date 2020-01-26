@@ -1,0 +1,197 @@
+@media (min-width: 768px) and (max-width: 1080px) {
+    .container {
+        width: 728px;
+    }
+
+    .portfolio-section ul li {
+        margin: 0 30px 40px;
+    }
+}
+
+@media only screen
+and (min-device-width: 768px)
+and (max-device-width: 1024px)
+and (orientation: landscape) {
+    .container {
+        width: 728px;
+    }
+
+    .portfolio-section ul li {
+        margin: 0 30px 40px;
+    }
+}
+
+@media (min-width: 640px) and (max-width: 768px) {
+    .container {
+        width: 600px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .portfolio-section ul li {
+        float: left;
+        margin: 0 10px 30px;
+    }
+
+    .portfolio-section ul li a img {
+        width: 280px;
+        height: 220px;
+    }
+
+    ul.nav, .menu ul.nav {
+        display: block;
+    }
+}
+
+@media (min-width: 480px) and (max-width: 640px) {
+    .container {
+        width: 440px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .portfolio-section ul li {
+        margin: 0 66px 40px;
+        float: left;
+    }
+
+    .credit {
+        text-align: center;
+        float: none;
+    }
+
+    .social {
+        float: none;
+        text-align: center;
+    }
+
+    .menu {
+        width: 50%;
+        margin-right: 0;
+    }
+
+    .menu ul li {
+        float: none;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+    }
+
+    ul.nav li a {
+
+        display: block;
+        padding: 15px 0;
+        background-color: rgba(0, 0, 0, 0.4);
+        transition: all 0.4s ease-in;
+    }
+
+    ul.nav li a:hover {
+        color: #FFF;
+        background-color: #226c5a;
+    }
+
+    .menu ul.nav {
+        position: static;
+        float: right;
+        width: 100%;
+        display: none;
+    }
+
+    .show-menu {
+        display: block;
+    }
+
+    .portfolio-text {
+        width: 95%;
+    }
+
+    .portfolio-img ul li img {
+        width: 440px;
+        height: auto;
+    }
+
+    .about-img {
+        float: none;
+        text-align: center;
+    }
+
+    .contact-section {
+        width: 95%;
+    }
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+    .container {
+        width: 280px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .portfolio-section ul li a img {
+        width: 240px;
+        height: 200px;
+    }
+
+    .credit {
+        text-align: center;
+        float: none;
+    }
+
+    .social {
+        float: none;
+        text-align: center;
+    }
+
+    .menu {
+        width: 50%;
+        margin-right: 0;
+    }
+
+    .menu ul li {
+        float: none;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+    }
+
+    ul.nav li a {
+
+        display: block;
+        padding: 15px 0;
+        background-color: rgba(0, 0, 0, 0.4);
+        transition: all 0.4s ease-in;
+    }
+
+    ul.nav li a:hover {
+        color: #FFF;
+        background-color: #16b1b5;
+    }
+
+    .menu ul.nav {
+        position: static;
+        display: none;
+        float: right;
+        width: 100%;
+    }
+
+    li {
+        margin-bottom: 1px;
+    }
+
+    .show-menu {
+        display: block;
+    }
+
+    .portfolio-img ul li img {
+        width: 280px;
+        height: auto;
+    }
+
+    .portfolio-text {
+        width: 95%;
+    }
+
+    .contact-section {
+        width: 80%;
+    }
+}

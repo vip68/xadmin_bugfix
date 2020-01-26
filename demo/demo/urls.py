@@ -13,16 +13,38 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-
 import xadmin
+from django.conf import settings
 from django.urls import path, include
 from django.views.generic.base import RedirectView
 from xadmin.plugins import xversion
+from index.views import index_view
+from base.views import ManageRedirectView
 
+xadmin.autodiscover()
 xversion.register_models()
 
-urlpatterns = [
-    path(r'favicon.ico', RedirectView.as_view(url='/static/xadmin/img/favicon.ico')),
-    path('admin/', xadmin.site.urls),
+work_urlpatterns = [
+    path('', ManageRedirectView.as_view(url=settings.MANAGE_PAGE), name=settings.MANAGE_NAME),
+    path('', xadmin.site.urls),
+    path('base/', include('base.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
 ]
+
+urlpatterns = [
+    path('favicon.ico', RedirectView.as_view(url='/static/xadmin/img/favicon.ico')),
+    path('', index_view, name='index'),
+    path('%s/' % settings.MANAGE_NAME, include(work_urlpatterns)),
+]
+
+handler400 = 'errorpage.views.bad_request'
+handler403 = 'errorpage.views.permission_denied'
+handler404 = 'errorpage.views.page_not_found'
+handler500 = 'errorpage.views.server_error'
+
+if settings.DEBUG:
+    from django.conf.urls.static import static
+    from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
+    urlpatterns += staticfiles_urlpatterns()
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -5,7 +5,7 @@ from django.core.mail import send_mail
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-from apps import CHAR_MIN_LENGTH
+from apps import CHAR_MIN_LENGTH, CHAR_EXT_LENGTH
 
 
 class AbstractUser(AbstractBaseUser, PermissionsMixin):
@@ -61,7 +61,10 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin):
 
 
 class UserProfile(AbstractUser):
-    user_id = models.CharField(verbose_name='工号', max_length=CHAR_MIN_LENGTH)
+    user_id = models.CharField(verbose_name='用户ID', max_length=CHAR_MIN_LENGTH, blank=True)
+    is_pwd_login = models.BooleanField(verbose_name='密码登录', help_text='指明用户是否可以通过帐号密码的方式登录这个管理站点。',
+                                       default=True)
+    home_page = models.CharField(verbose_name='首页', max_length=CHAR_EXT_LENGTH, blank=True)
 
     class Meta:
         verbose_name = _('user')
