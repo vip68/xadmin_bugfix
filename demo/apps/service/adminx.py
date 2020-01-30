@@ -120,7 +120,7 @@ class BaseHelperAdmin(DetailAdminView):
             'app_label': self.app_label,
             'brand_name': self.opts.verbose_name_plural,
             'brand_icon': self.get_model_icon(self.model),
-            'opts_url': '/%s/service/article/' % settings.MANAGE_NAME,
+            'opts_url': '/%s/service/article/' % settings.SITE_NAME,
             'has_change_permission': context['has_change_permission'] and self.has_modify_permission,
             'has_delete_permission': context['has_delete_permission'] and self.has_del_permission,
             'has_view_article_permission': self.has_view_article_permission(),
@@ -157,8 +157,8 @@ class ReleaseLogAdmin(BaseHelperAdmin):
 
         context = super(ReleaseLogAdmin, self).get_context()
         context.update({
-            'edit_url': '/%s/service/article/%d/update' % (settings.MANAGE_NAME, index),
-            'delete_url': '/%s/service/article/%d/delete' % (settings.MANAGE_NAME, index),
+            'edit_url': '/%s/service/article/%d/update' % (settings.SITE_NAME, index),
+            'delete_url': '/%s/service/article/%d/delete' % (settings.SITE_NAME, index),
         })
 
         return context

@@ -13,7 +13,7 @@ def get_error_page(status_code, message):
     """
     context = {
         'site_web': settings.SITE_TITLE,
-        'site_url': reverse('admin'),
+        'site_url': reverse(settings.SITE_NAME),
         'status_code': status_code,
         'message': message,
         'date': datetime.now().year

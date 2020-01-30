@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="{% static "xadmin/css/responsive.css" %}"/>
     <link rel="stylesheet" type="text/css" href="{% static "xadmin/vendor/font-awesome/css/font-awesome.min.css" %}"/>
     <script type="text/javascript" src="{% static "xadmin/js/jquery.min.js" %}"></script>
+    <input type="hidden" value="{{ site_path }}" id="sitePath"/>
     <title>常用功能导航</title>
 {% endblock %}
 
@@ -51,8 +52,9 @@
             <div class="credit-social">
                 <div class="credit">
                     <p class="copyright">
-                    <b>Github &copy; {{ date }} <a href="https://github.com/vip68/xadmin_bugfix.git" target="_blank">纵世科技</a>.
-                        All rights reserved.</b></p>
+                        <b>Github &copy; {{ date }} <a href="https://github.com/vip68/xadmin_bugfix.git"
+                                                       target="_blank">纵世科技</a>.
+                            All rights reserved.</b></p>
                 </div>
                 <div class="social">
                     <ul class="socialmedia">
@@ -70,7 +72,8 @@
 
     <script type="text/javascript">
         $(function setHref() {
-            let host = window.location.protocol + "//" + window.location.host + "/admin/";
+            var sitePath = document.getElementById('sitePath').value;
+            let host = window.location.protocol + "//" + window.location.host + sitePath;
             let manage = document.getElementById("manage");
             manage.setAttribute("href", host);
         });

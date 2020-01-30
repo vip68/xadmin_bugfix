@@ -1,12 +1,9 @@
 from datetime import datetime
 from django.conf import settings
-from django.contrib.auth import get_user_model
 from xadmin.sites import site
 from xadmin.views import CommAdminView, ListAdminView, filter_hook
 from .plugins import SetHomePagePlugin
 from . import sitemenu
-
-UserModel = get_user_model()
 
 
 class GlobalSetting(CommAdminView):
@@ -59,7 +56,7 @@ class GlobalSetting(CommAdminView):
 
         context.update({
             'menu_style': self.menu_style,
-            'site_url': settings.MANAGE_PAGE,
+            'site_url': settings.SITE_PAGE,
             'date': datetime.now().year,
         })
 

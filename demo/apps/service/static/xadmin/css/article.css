@@ -1,3 +1,22 @@
+@media (max-width: 767px) {
+    .navbar-inverse .navbar-toggle {
+        border-color: #FFFFFF;
+        padding: 3px 10px;
+        font-size: 20px;
+        color: white;
+        width: auto;
+        height: auto;
+    }
+
+    .navbar-inverse {
+        background-color: #f8f8f8;
+        border-color: #e7e7e7;
+    }
+}
+
+#content-article {
+    position: inherit;
+}
 
 .article_title {
     width: 100%;

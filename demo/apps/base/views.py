@@ -21,7 +21,7 @@ def get_site_info(request):
 
 
 @csrf_exempt
-@login_required(login_url='/%s/login/' % settings.MANAGE_NAME)
+@login_required(login_url='/%s/login/' % settings.SITE_NAME)
 def set_homepage(request):
     """
     设置首页

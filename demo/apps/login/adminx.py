@@ -65,7 +65,7 @@ class LoginViewAdmin(LoginView):
         # 登录成功，view 的类型是 HttpResponseRedirect
         # 用户名肯定是存在了，不然也不会成功登录，所以这里不用对用户是否存在做判断
         if isinstance(view, HttpResponseRedirect):
-            return HttpResponseRedirect(reverse('admin'))
+            return HttpResponseRedirect(reverse(settings.SITE_NAME))
 
         username = request.POST.get('username')
         user_obj = UserModel.objects.filter(username=username).first()
@@ -84,7 +84,7 @@ def get_render_context(user_obj=None, message=None, history_href=None):
     """
     context = {
         'site_web': settings.SITE_TITLE,
-        'site_url': reverse('admin'),
+        'site_url': reverse(settings.SITE_NAME),
         'date': datetime.now().year,
     }
     context.update({'wait_second': 0 if user_obj is None else 10})

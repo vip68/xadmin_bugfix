@@ -6,6 +6,6 @@ if DEBUG is True:
 else:
     from .production import *
 
-MANAGE_NAME = 'admin'
+SITE_NAME = 'admin'
 
-MANAGE_PAGE = '/admin/service/article/'
+SITE_PAGE = '/%s/service/article/' % SITE_NAME
