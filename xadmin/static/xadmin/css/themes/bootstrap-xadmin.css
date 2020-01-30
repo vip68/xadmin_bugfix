@@ -111,3 +111,7 @@
 .checkbox label, .radio label {
     font-weight: bold;
 }
+
+.panel-title{
+    cursor:pointer;
+}
