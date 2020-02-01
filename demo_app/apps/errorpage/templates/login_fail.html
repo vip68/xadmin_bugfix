@@ -1,0 +1,118 @@
+{% load i18n xadmin_tags %}<!DOCTYPE html>
+<!--
+	Dimension by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+{% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as LANGUAGE_BIDI %}
+<html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
+<head>
+    <meta charset="utf-8"/>
+    <title>{% block title %}{{ site_web }}{% endblock %}</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{% static "/xadmin/img/favicon.ico" %}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <link rel="stylesheet" href="{% static "assets/css/main.css" %}"/>
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="{% static "assets/css/ie9.css" %}"/><![endif]-->
+    <input type="hidden" value="{{ wait_second }}" id="waitSecond"/>
+    <input type="hidden" value="{{ history_href }}" id="HistoryHref"/>
+    <noscript>
+        <link rel="stylesheet" href="{% static "assets/css/noscript.css" %}"/>
+    </noscript>
+    <style>
+        * {
+            moz-user-select: -moz-none;
+            -moz-user-select: none;
+            -o-user-select: none;
+            -khtml-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    </style>
+</head>
+
+<body>
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Header -->
+    <header id="header">
+        <div class="logo">
+            <span class="icon fa-diamond"></span>
+        </div>
+        <div class="content">
+            <div class="inner">
+                <h1>登录失败</h1>
+                {% if message %}
+                    <p>{{ message|safe }}</p>
+                {% else %}
+                    <p>{% if wait_second %}
+                        对不起，你输入的帐号或密码有误，请<a href class="history">返回</a>重试！
+                        <span class="wait">{{ wait_second }}</span>
+                    {% else %}
+                        对不起，你还不是本站会员，请重新登录或注册后再尝试登录！
+                    {% endif %}</p>
+                {% endif %}
+            </div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/">首页</a></li>
+                <li><a href="{{ site_url }}">{{ site_web }}</a></li>
+                <li><a href="https://www.cnblogs.com/v88v/" target="_blank">关于</a></li>
+                <!--<li><a href="#elements">Elements</a></li>-->
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main -->
+
+
+    <!-- Footer -->
+    <footer id="footer">
+        <p class="copyright">Github &copy; {{ date }} <a href="https://github.com/vip68/xadmin_bugfix.git"
+                                                         target="_blank">纵世科技. All rights reserved.</a></p>
+    </footer>
+
+</div>
+
+<!-- BG -->
+<div id="bg"></div>
+
+<!-- Scripts -->
+<script type="text/javascript" src="{% static "assets/js/jquery.min.js" %}"></script>
+<script type="text/javascript" src="{% static "assets/js/skel.min.js" %}"></script>
+<script type="text/javascript" src="{% static "assets/js/util.js" %}"></script>
+<script type="text/javascript" src="{% static "assets/js/main.js" %}"></script>
+
+{#只有设置了等待时间，才会进行跳转#}
+{% if wait_second %}
+    <script type="text/javascript">
+        var countdown = parseInt(document.getElementById('waitSecond').value);
+        var href = document.getElementById('HistoryHref').value;
+        {% if not history_href %}
+            href = $(".history").attr("href");
+        {% endif %}
+
+        var spanWait = $("span.wait");
+        spanWait.href = href;
+        settime();
+
+        function settime() {
+            if (countdown === 0) {
+                window.location.href = href;
+                return;
+            } else {
+                spanWait.text(countdown);
+                countdown--;
+            }
+
+            setTimeout(function () {
+                settime()
+            }, 1000)
+        }
+    </script>
+{% endif %}
+</body>
+</html>

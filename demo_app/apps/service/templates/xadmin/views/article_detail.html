@@ -1,0 +1,66 @@
+{% extends base_template %}
+{% load i18n xadmin_tags crispy_forms_tags %}
+
+{% block extrastyle %}{{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static "xadmin/css/article.css" %}"/>
+{% endblock %}
+
+{% block bodyclass %}{{ opts.app_label }}-{{ opts.object_name.lower }} detail{% endblock %}
+
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+        <li><a href="{% url 'xadmin:index' %}">{% trans 'Home' %}</a></li>
+        <li><a href="{{ opts_url }}">{{ opts.verbose_name_plural|capfirst }}</a></li>
+        <li>{{ article_title }}</li>
+    </ul>
+{% endblock %}
+
+{% block content-nav %}
+    <div id="content-article" class="navbar content-navbar navbar-default navbar-xs" data-toggle="breakpoint"
+         data-class-xs="navbar content-navbar navbar-inverse navbar-xs"
+         data-class-sm="navbar content-navbar navbar-default navbar-xs">
+        <div class="article_title">
+            {% block nav_title %}
+                <h2 style="color: #696969;text-align:center;">{{ article_title }}</h2>
+            {% endblock %}
+        </div>
+        <br/>
+
+        <div>
+            <p class="title_status">
+                <span style="margin-right:50px;">发布者：{{ publisher }}</span>
+                <span style="margin-right:50px;">浏览次数：{{ view_count }} 次</span>
+                <span style="margin-right:50px;">发布时间：{{ publish_time }}</span>
+                {% if update_time %}
+                    <span style="margin-right:50px;">更新时间：{{ update_time }}</span>
+                {% endif %}
+            </p>
+        </div>
+        <br/>
+
+        {% block bottom-btn %}
+            <div class="bottom-btn">
+                {% if has_change_permission %}
+                    <a href="{% if edit_url %}{{ edit_url }}{% else %}
+                        {% url opts|admin_urlname:'change' object.pk %}{% endif %}"
+                       class="btn btn-primary"><i class="fa fa-pencil"></i>
+                        <span>{% trans "Edit" %}</span></a>
+                {% endif %}
+                {% if has_delete_permission %}
+                    <a href="{% if delete_url %}{{ delete_url }}{% else %}
+                        {% url opts|admin_urlname:'delete' object.pk %}{% endif %}"
+                       class="btn btn-danger"><i class="fa fa-trash-o"></i>
+                        <span>{% trans "Delete" %}</span></a>
+                {% endif %}
+            </div>
+        {% endblock %}
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="allcontent">
+        <div class="cssarticle">
+            {{ content|safe }}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% load xadmin_tags %}
+
+<div class="btn-group export">
+    <link rel="stylesheet" type="text/css" href="{% static "xadmin/css/sweetalert2.css" %}"/>
+    <input type="hidden" value="{{ query_url }}" id="queryUrl"/>
+    <input type="hidden" value="{{ url_path }}" id="urlPath"/>
+    <button id="set_homepage" name="btn_homepage" class="btn btn-default btn-sm" onclick="changeValue();">
+        <i class="fa-fw fa fa-home"></i>设为首页
+    </button>
+
+    <script type="text/javascript">
+        function changeValue() {
+            var queryUrl = document.getElementById('queryUrl').value;
+            var urlPath = document.getElementById('urlPath').value;
+            var url = window.location.protocol + "//" + window.location.host + queryUrl;
+
+            Swal.fire({
+                title: "设为首页",
+                text: "确定要将当前页面设置为首页吗？",
+                icon: "info",
+                showCancelButton: true,
+                allowOutsideClick: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#808080",
+                customClass: "swal2-info",
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+            }).then((result) => {
+                if (result.value) {
+                    $(resultMsg())
+                }
+            });
+
+            function resultMsg() {
+                $.post(url, {
+                    "url_path": urlPath
+                }, function (resolve) {
+                    if (resolve.errcode === 0) {
+                        Swal.fire({
+                            icon: "success",
+                            type: "success",
+                            customClass: "swal2-info",
+                            title: "设置成功",
+                            text: "你已将当前页面设置为首页！",
+                            confirmButtonText: "朕知道了",
+                            allowOutsideClick: true,
+                            allowEscapeKey: false,
+                        })
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            type: "error",
+                            customClass: "swal2-info",
+                            title: "设置失败",
+                            text: "未能将当前页面设置为首页！",
+                            confirmButtonText: "朕知道了",
+                            allowOutsideClick: true,
+                            allowEscapeKey: false
+                        })
+                    }
+                }, 'json');
+            }
+        }
+    </script>
+</div>

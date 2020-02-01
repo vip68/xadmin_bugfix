@@ -1,0 +1,184 @@
+{% load xadmin_tags %}
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml">
+
+{% block extrastyle %}
+    <title>常用功能导航</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link rel="shortcut icon" href="{% static "xadmin/img/favicon.ico" %}" type="image/x-icon"/>
+    <link href="{% static "xadmin/vendor/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
+    <link href="{% static "xadmin/vendor/font-awesome/css/font-awesome.min.css" %}" rel="stylesheet">
+    <link href="{% static "xadmin/pe-icons/css/pe-icon-7-stroke.css" %}" rel="stylesheet">
+    <link href="{% static "xadmin/css/animate.css" %}" rel="stylesheet">
+    <link href="{% static "xadmin/css/plugins.css" %}" rel="stylesheet">
+    <link href="{% static "xadmin/css/style.css" %}" rel="stylesheet">
+    <script type="text/javascript" src="{% static "xadmin/js/jquery.min.js" %}"></script>
+    <input type="hidden" value="{{ site_url }}" id="siteUrl"/>
+{% endblock %}
+
+{% block body %}
+    <!-- Site Overlay -->
+    <div class="site-overlay"></div>
+
+    <div id="master-wrapper">
+        <div class="navbar nav-wrapper smoothie">
+            <div class="container">
+                <div class="row">
+                    <div id="header-title" class="col-sm-12 text-center mb30">
+                        <h1>常用功能导航</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="white-wrapper">
+            <div class="section-inner">
+                <div class="container">
+                    <div class="row mb60 text-center">
+                        <div class="col-sm-6 text-left match-height">
+                            <ul class="masonry-portfolio-filter list-unstyled list-inline wow fadeIn text-right vertical-center-js"
+                                data-wow-delay="0.2s">
+                                <li><a class="btn btn-primary btn-transparent active" href="#" data-filter="*">全部</a>
+                                </li>
+                                <li><a class="btn btn-primary btn-transparent" href="#" data-filter=".github">GitHub</a>
+                                </li>
+                                <li><a class="btn btn-primary btn-transparent" href="#" data-filter=".manage">管理后台</a>
+                                </li>
+                                <li><a class="btn btn-primary btn-transparent" href="#" data-filter=".blog">博客园</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="masonry-portfolio row">
+                                        <div>
+                                            <div class="masonry-portfolio-items">
+                                                <div class="row">
+                                                    <div class="col-sm-4 masonry-portfolio-item mb30 github">
+                                                        <div class="hover-effect smoothie">
+                                                            <a href="https://github.com/vip68/xadmin_bugfix.git" target="_blank"
+                                                               class="smoothie">
+                                                                <img src="{% static "xadmin/images/portfolio/git.png" %}"
+                                                                     alt="Git项目仓库"
+                                                                     class="img-responsive smoothie"></a>
+                                                            <div class="hover-overlay smoothie text-center"
+                                                                 style="position:relative;">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4 masonry-portfolio-item mb30 manage">
+                                                        <div class="hover-effect smoothie">
+                                                            <a id="xadmin" href="#" target="_blank" class="smoothie">
+                                                                <img src="{% static "xadmin/images/portfolio/manage.png" %}"
+                                                                     alt="管理后台"
+                                                                     class="img-responsive smoothie"></a>
+                                                            <div class="hover-overlay smoothie text-center"
+                                                                 style="position:relative;">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4 masonry-portfolio-item mb30 blog">
+                                                        <div class="hover-effect smoothie">
+                                                            <a href="https://www.cnblogs.com/v88v/" target="_blank"
+                                                               class="smoothie">
+                                                                <img src="{% static "xadmin/images/portfolio/blog.png" %}"
+                                                                     alt="纵世科技"
+                                                                     class="img-responsive smoothie"></a>
+                                                            <div class="hover-overlay smoothie text-center"
+                                                                 style="position:relative;">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer id="footer-wrapper" class="dark-wrapper">
+            <div class="container">
+                <div class="row mb90">
+                    <div class="col-md-3 col-xs-6">
+                    </div>
+                    <div class="col-md-3 col-xs-6">
+                        <div class="text-widget widget">
+                            <h4 class="widget-title mb40">关注</h4>
+                            <div class="widget-content">
+                                <p class="mb40">发现更多好玩有趣新鲜事</p>
+                                <p>
+                                    <img style="width: 200px"
+                                         src="{% static "xadmin/images/portfolio/wechat.jpg" %}"
+                                         alt="微信二维码">
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xs-6">
+                        <div class="useful-link-widget widget">
+                            <h4 class="widget-title mb40">关于</h4>
+                            <div class="widget-content">
+                                <div class="useful-link-list">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <ul class="list-unstyled">
+                                                <li>
+                                                    Powered by <a style="font-weight: bold"
+                                                                  href="https://v88v.cnblogs.com/"
+                                                                  title="技术博客" target="_blank">纵世科技</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <a href="#" id="back-to-top"><i class="fa fa-angle-up"></i></a>
+    </div>
+
+    <script type="text/javascript">
+        $(function setHref() {
+            let url = document.getElementById('siteUrl').value;
+            let xadmin = document.getElementById("xadmin");
+            xadmin.setAttribute("href", url);
+        });
+
+        $(document).ready(function () {
+            $(".open1").click(function () {
+                $(".nav").slideToggle();
+            })
+        });
+
+        $(window).resize(function () {
+            if ($(window).width() >= 768) {
+                $('.nav').css('display', 'block');
+            } else {
+                $('.nav').css('display', 'none');
+            }
+        });
+
+    </script>
+    <script type="text/javascript" src="{% static "xadmin/vendor/bootstrap/js/bootstrap.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "xadmin/js/owl-carousel.js" %}"></script>
+    <script type="text/javascript" src="{% static "xadmin/js/plugins.js" %}"></script>
+    <script type="text/javascript" src="{% static "xadmin/js/init.js" %}"></script>
+
+{% endblock %}
+</html>

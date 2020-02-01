@@ -1,0 +1,85 @@
+{% extends base_template %}
+{% load i18n xadmin_tags crispy_forms_tags %}
+
+{% block extrastyle %}{{ block.super }}
+    <link rel="stylesheet" media="screen" href="{% static "xadmin/css/style.css" %}" type="text/css">
+    <link rel="stylesheet" media="screen" href="{% static "xadmin/css/login.css" %}" type="text/css">
+    <style>
+        #particles-js {
+            width: 100%;
+            height: 100%;
+            background-color: #00001e;
+            background-image: url("{% static bg_path %}");
+            background-size: cover;
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div id="particles-js" style="display: flex;align-items: center;justify-content: center">
+        <div class="demo">
+                <div class="login__logo">
+                    <img alt="logo" src="{% static "xadmin/img/logo.png" %}" width="200" height="122">
+                </div>
+                    <div class="login__check">
+                        <br/>{% if title %}{{ title }}{% else %}{% trans "Please Login" %}{% endif %}<br/>
+                    </div>
+                <form id="login-form" action="" method="post">
+                    {% csrf_token %}
+                    {% block login_form %}
+                        <div id="panel-login" class="login__form" style="position: relative;top:0;"></div>
+
+
+                            {% view_block 'form_top' %}
+                            {% include 'bootstrap3/errors.html' %}
+
+                            <div id="div_id_username"
+                                 class="login__row{% if form.username.errors %} has-error{% endif %}">
+                                <svg class="login__icon name svg-icon" viewBox="0 0 20 20">
+                                    <path d="M0,20 a10,8 0 0,1 20,0z M10,0 a4,4 0 0,1 0,8 a4,4 0 0,1 0,-8"></path>
+                                </svg>
+
+                                <input type="text" class="login__input" id="id_username" name="username" maxlength="254"
+                                       placeholder="{% trans "Username" %}" autocomplete='off'>
+
+                                {% for error in form.username.errors %}
+                                    <p id="error_{{ forloop.counter }}_{{ field.auto_id }}"
+                                       class="text-danger help-block">{{ error }}</p>
+                                {% endfor %}
+                            </div>
+
+                            <div id="div_id_password"
+                                 class="login__row{% if form.password.errors %} has-error{% endif %}">
+                                <svg class="login__icon pass svg-icon" viewBox="0 0 20 20">
+                                    <path d="M0,20 20,20 20,8 0,8z M10,13 10,16z M4,8 a6,8 0 0,1 12,0"></path>
+                                </svg>
+
+                                <input type="password" class="login__input" id="id_password" name="password"
+                                       placeholder="{% trans "Password" %}" autocomplete='off'>
+
+                                {% for error in form.password.errors %}
+                                    <p id="error_{{ forloop.counter }}_{{ field.auto_id }}"
+                                       class="text-danger help-block">{{ error }}</p>
+                                {% endfor %}
+                            </div>
+
+                            <input type="hidden" name="this_is_the_login_form" value="1"/>
+                            <input type="hidden" name="next" value="{{ next }}"/>
+                            <button type="submit" class="login__submit">{% trans 'log in' %}</button>
+                            {# {% view_block 'form_bottom' %}#}
+
+
+                        <div class="registration" style="color:#F5FFFA">用户名：admin 密码：admin123</div>
+                    {% endblock %}
+                </form>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        document.getElementById('id_username').focus()
+    </script>
+    <script type="text/javascript" src="{% static "xadmin/js/particles.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "xadmin/js/app.js" %}"></script>
+{% endblock %}

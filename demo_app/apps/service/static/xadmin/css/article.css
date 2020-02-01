@@ -1,0 +1,56 @@
+@media (max-width: 767px) {
+    .navbar-inverse .navbar-toggle {
+        border-color: #FFFFFF;
+        padding: 3px 10px;
+        font-size: 20px;
+        color: white;
+        width: auto;
+        height: auto;
+    }
+
+    .navbar-inverse {
+        background-color: #f8f8f8;
+        border-color: #e7e7e7;
+    }
+}
+
+#content-article {
+    position: inherit;
+}
+
+.article_title {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.title_status {
+    color: #666666;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+
+}
+
+.bottom-btn {
+    right: 3%;
+    position: fixed;
+    bottom: 11%;
+    z-index: 100;
+}
+
+.allcontent {
+    margin: 0 auto;
+    width: 95%;
+    height: 100%;
+    background: #FBFBFB;
+    min-height: 50vh;
+}
+
+.cssarticle img {
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    vertical-align: middle;
+}
