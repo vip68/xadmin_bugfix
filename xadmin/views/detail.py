@@ -10,7 +10,6 @@ from django.forms.models import modelform_factory
 from django.http import Http404
 from django.template import loader
 from django.template.response import TemplateResponse
-from django.utils import six
 from django.utils.encoding import force_text, smart_text
 from django.utils.html import escape
 from django.utils.safestring import mark_safe
@@ -115,12 +114,11 @@ class ResultField(object):
 
 
 def replace_field_to_value(layout, cb):
-    cls_str = str if six.PY3 else basestring
     for i, lo in enumerate(layout.fields):
         if isinstance(lo, Field) or issubclass(lo.__class__, Field):
             layout.fields[i] = ShowField(
                 cb, *lo.fields, attrs=lo.attrs, wrapper_class=lo.wrapper_class)
-        elif isinstance(lo, cls_str):
+        elif isinstance(lo, str):
             layout.fields[i] = ShowField(cb, lo)
         elif hasattr(lo, 'get_field_names'):
             replace_field_to_value(lo, cb)
@@ -214,8 +212,7 @@ class DetailAdminView(ModelAdminView):
         layout = self.get_form_layout()
         replace_field_to_value(layout, self.get_field_result)
         helper.add_layout(layout)
-        cls_str = str if six.PY3 else basestring
-        helper.filter(cls_str, max_level=20).wrap(ShowField, admin_view=self)
+        helper.filter(str, max_level=20).wrap(ShowField, admin_view=self)
         return helper
 
     @csrf_protect_m

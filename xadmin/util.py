@@ -5,7 +5,7 @@ from django.db.models.sql.query import LOOKUP_SEP
 from django.db.models.deletion import Collector
 from django.db.models.fields.related import ForeignObjectRel
 from django.forms.forms import pretty_name
-from django.utils import formats, six
+from django.utils import formats
 from django.utils.html import escape
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
@@ -20,10 +20,7 @@ from django import VERSION as version
 import datetime
 import decimal
 
-if 'django.contrib.staticfiles' in settings.INSTALLED_APPS:
-    from django.contrib.staticfiles.templatetags.staticfiles import static
-else:
-    from django.templatetags.static import static
+from django.templatetags.static import static
 
 try:
     import json
@@ -43,7 +40,6 @@ def xstatic(*tags):
     fs = []
     lang = get_language()
 
-    cls_str = str if six.PY3 else basestring
     for tag in tags:
         try:
             for p in tag.split('.'):
@@ -58,7 +54,7 @@ def xstatic(*tags):
             else:
                 raise e
 
-        if isinstance(node, cls_str):
+        if isinstance(node, str):
             files = node
         else:
             mode = 'dev'
@@ -128,8 +124,7 @@ def quote(s):
     quoting is slightly different so that it doesn't get automatically
     unquoted by the Web browser.
     """
-    cls_str = str if six.PY3 else basestring
-    if not isinstance(s, cls_str):
+    if not isinstance(s, str):
         return s
     res = list(s)
     for i in range(len(res)):
@@ -143,8 +138,7 @@ def unquote(s):
     """
     Undo the effects of quote(). Based heavily on urllib.unquote().
     """
-    cls_str = str if six.PY3 else basestring
-    if not isinstance(s, cls_str):
+    if not isinstance(s, str):
         return s
     mychr = chr
     myatoi = int
