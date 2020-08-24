@@ -247,7 +247,7 @@ class NumberFieldListFilter(FieldFilter):
 @manager.register
 class DateFieldListFilter(ListFieldFilter):
     template = 'xadmin/filters/date.html'
-    lookup_formats = {'since': '%s__gte', 'until': '%s__lt',
+    lookup_formats = {'since': '%s__gte', 'until': '%s__lte',
                       'year': '%s__year', 'month': '%s__month', 'day': '%s__day',
                       'isnull': '%s__isnull'}
 
